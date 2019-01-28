@@ -9,7 +9,7 @@ import java.time.*;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(LocalDateTime.class)
+@PrepareForTest({LocalDateTime.class, LocalDate.class})
 public class MainTest {
     @Test
     public void test() {
@@ -21,6 +21,20 @@ public class MainTest {
 
 
         LocalDateTime now = LocalDateTime.now();
+
+        assertEquals(now, localDateTime);
+    }
+
+    @Test
+    public void test2() {
+        LocalDate localDateTime = LocalDate.of(2014, Month.DECEMBER, 22);
+        Clock clock = Clock.fixed(Instant.parse("2014-12-22T10:15:30.00Z"), ZoneId.of("UTC"));
+        LocalDate dateTime = LocalDate.now(clock);
+        PowerMockito.mockStatic(LocalDate.class);
+        PowerMockito.when(LocalDate.now()).thenReturn(dateTime);
+
+
+        LocalDate now = LocalDate.now();
 
         assertEquals(now, localDateTime);
     }
