@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'povilas.jegelevicius'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.7.4'
+    testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.7.4'
+
+
+
+}
