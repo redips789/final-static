@@ -4,17 +4,25 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.time.LocalDate;
-import java.time.Month;
+import java.time.*;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Main.class)
+@PrepareForTest(LocalDateTime.class)
 public class MainTest {
     @Test
     public void test() {
-        PowerMockito.mockStatic(Main.class);
-        PowerMockito.when(Main.method1()).thenReturn(LocalDate.of(2018, Month.APRIL, 1));
-        org.junit.Assert.assertEquals(Main.method1(), LocalDate.of(2018, Month.APRIL, 1));
+        LocalDateTime localDateTime = LocalDateTime.of(LocalDate.of(2014, Month.DECEMBER, 22), LocalTime.of(10,15,30));
+        Clock clock = Clock.fixed(Instant.parse("2014-12-22T10:15:30.00Z"), ZoneId.of("UTC"));
+        LocalDateTime dateTime = LocalDateTime.now(clock);
+        PowerMockito.mockStatic(LocalDateTime.class);
+        PowerMockito.when(LocalDateTime.now()).thenReturn(dateTime);
+
+
+        LocalDateTime now = LocalDateTime.now();
+
+        assertEquals(now, localDateTime);
     }
 
 }
